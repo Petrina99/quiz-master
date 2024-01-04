@@ -1,5 +1,5 @@
-cd existing_repo
-git remote add origin https://gitlab.com/petrinamislav/quiz-master.git
-git branch -M main
-git push -uf origin main
+cd existing_repo <br />
+git remote add origin https://gitlab.com/petrinamislav/quiz-master.git <br />
+git branch -M main <br />
+git push -uf origin main <br />
 
