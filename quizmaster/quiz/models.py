@@ -35,7 +35,6 @@ class Comment(models.Model):
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='likes')
-    value = models.BooleanField()
 
     def __str__(self):
         return f"{self.user.username} likes {self.quiz.quiz_name}"
