@@ -39,4 +39,10 @@ class Like(models.Model):
     def __str__(self):
         return f"{self.user.username} likes {self.quiz.quiz_name}"
 
+class UserQuiz(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    score = models.IntegerField
 
+    def __str__(self):
+        return self.score
