@@ -3,27 +3,40 @@
 <html>
     <head>
         <title>Quiz Master</title>
-        <!--<link rel="stylesheet" href="{% static 'app/css/app.css' %}">-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'quiz/css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'quiz/css/home.css' %}">
     </head>
     <body>
-        <div>
-            {% if request.user.is_superuser %}
-                <a class="nav-link" href="/admin">Go to admin</a>
-            {% endif %}
-            {% if request.user.is_authenticated %}
-                <p>User: {{ request.user.username }}</p>
-                <p>[{{ request.user.email }}]</p>
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit">Odjavi se</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}">
-                    Prijavi se
-                </a>
-            {% endif %}
-        </div>
-        <div>
+        <header class="header">
+            <div class="header-brand">
+                <h1>
+                    <a href="/" class="home-link">QuizMaster</a>
+                </h1>
+            </div>
+            <nav class="header-nav">
+                {% if request.user.is_superuser %}
+                    <a class="admin-link" href="/admin">Go to admin</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                    <p class="nav-username">User: 
+                        <span class="user-span">{{ request.user.username }}</span>
+                    </p>
+                    <form method="post" action="{% url 'logout' %}" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit">Odjavi se</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="login-link">
+                        Prijavi se
+                    </a>
+                {% endif %}
+            </nav>
+        </header>
+        <div class="main-content">
             {% block content %}
             {% endblock %}
         </div>
