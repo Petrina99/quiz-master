@@ -1,0 +1,31 @@
+{% load static %}
+
+<html>
+    <head>
+        <title>Quiz Master</title>
+        <!--<link rel="stylesheet" href="{% static 'app/css/app.css' %}">-->
+    </head>
+    <body>
+        <div>
+            {% if request.user.is_superuser %}
+                <a class="nav-link" href="/admin">Go to admin</a>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+                <p>User: {{ request.user.username }}</p>
+                <p>[{{ request.user.email }}]</p>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Odjavi se</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">
+                    Prijavi se
+                </a>
+            {% endif %}
+        </div>
+        <div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
