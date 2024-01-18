@@ -1,0 +1,85 @@
+.auth-form-container {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: white;
+    padding: 2em 2em 5em;
+    margin-top: 25px;
+    border-radius: 20px;
+}
+
+.auth-form-container h1 {
+    color: white;
+    margin-bottom: 15px;
+}
+
+.auth-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+    border-radius: 10px;
+    margin-top: 15px;
+    background-color: #012C2A;
+}
+
+.form-input-div {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-input-div input {
+    width: 70%;
+    padding: 1em;
+    background: #004643;
+    border: none;
+    color: white;
+    border-radius: 10px;
+}
+
+.form-btn-div {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.form-btn-div button {
+    border: none;
+    padding: 1em 2em;
+    border-radius: 10px;
+    background: #004643;
+    color: white;
+    cursor: pointer;
+}
+
+.form-btn-div button:hover {
+    background-color: greenyellow;
+    color: black;
+}
+
+.link-to-login {
+    color: white;
+}
+
+.link-to-login a {
+    color: greenyellow;
+    font-weight: bold;
+}
+
+.link-to-login a:hover {
+    text-decoration: underline;
+}
+
+.form-error {
+    width: 100%;
+    text-align: center;
+    color: red;
+}

@@ -3,6 +3,7 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: 'Montserrat', sans-serif;
+    background: #121212;
 }
 
 button, input {
@@ -43,6 +44,10 @@ button:focus {
 
 .home-link {
     color: white;
+}
+
+.login-link:first-of-type {
+    margin-right: 10px;
 }
 
 .login-link {
@@ -106,5 +111,4 @@ button:focus {
     align-items: center;
     flex-wrap: wrap;
     padding: 1em;
-    height: max-content;
 }
