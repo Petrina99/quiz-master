@@ -9,6 +9,7 @@
 
         <link rel="stylesheet" href="{% static 'quiz/css/base.css' %}">
         <link rel="stylesheet" href="{% static 'quiz/css/home.css' %}">
+        <link rel="stylesheet" href="{% static 'registration/css/registration.css' %}">
     </head>
     <body>
         <header class="header">
@@ -27,11 +28,14 @@
                     </p>
                     <form method="post" action="{% url 'logout' %}" class="logout-form">
                         {% csrf_token %}
-                        <button type="submit">Odjavi se</button>
+                        <button type="submit">Logout</button>
                     </form>
                 {% else %}
-                    <a href="{% url 'login' %}" class="login-link">
-                        Prijavi se
+                    <a href="{% url 'quiz:login_user' %}" class="login-link">
+                        Login
+                    </a>
+                    <a href="{% url 'quiz:register_user' %}" class="login-link">
+                        Register
                     </a>
                 {% endif %}
             </nav>
