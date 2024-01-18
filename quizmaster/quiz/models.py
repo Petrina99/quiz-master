@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Quiz(models.Model):
     quiz_name = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateTimeField("date published", auto_now_add=True)
 
     def __str__(self):
         return self.quiz_name
@@ -25,7 +25,7 @@ class Answer(models.Model):
 
 class Comment(models.Model):
     comment_text = models.TextField()
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateTimeField("date published", auto_now_add=True)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
