@@ -1,0 +1,22 @@
+{% extends 'quiz/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista Kvizova</title>
+</head>
+<body>
+
+<h1>Svi kvizovi</h1>
+
+{% for quiz in quizzes %}
+    <div>
+        <h2>{{ quiz.quiz_name }}</h2>
+        <p>Napravljen: {{ quiz.pub_date }}</p>
+        <a> 
+            <button>Rješavanje kviza</button>
+        </a>
+    </div>
+{% endfor %}
+
+</body>
+</html>
