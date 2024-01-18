@@ -4,6 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
+from .models import Quiz
+
 # Create your views here.
 def home(request):
 
@@ -63,3 +65,11 @@ def login_user(request):
             return render(request, 'registration/login.html', context)
     
     return render(request, 'registration/login.html')
+
+
+def quiz_list(request):
+    quizzes = Quiz.objects.all()
+    context={
+        "quizzes":quizzes,
+    }
+    return render(request, 'list.html', context)
