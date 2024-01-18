@@ -38,6 +38,9 @@
     color: white;
 }
 
+.link-container a{
+    color: white;
+}
 .link-container:hover {
     background-color:#025a55;
 }
