@@ -6,6 +6,8 @@ from .models import Quiz, Question
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
+from django.urls import reverse
+
 from .models import Quiz
 
 # Create your views here.
@@ -78,3 +80,29 @@ def quiz_list(request):
     }
     
     return render(request, 'quiz/list.html', context)
+
+def detail(request, quiz_id):
+    context = {}
+
+    quiz = get_object_or_404(Quiz,pk=quiz_id)
+    context = {
+        "quiz": quiz
+    }
+
+    return render(request, 'quiz/detail.html', context)
+
+def create_quiz(request):
+    context = {}
+
+    if request.method == "POST" and request.user.is_authenticated:
+        title = request.POST["title"]
+        
+        quiz = Quiz(quiz_name=title, author=request.user)
+        quiz.save()
+
+        context = {
+            "quiz": quiz
+        }
+        return HttpResponseRedirect(reverse('quiz:detail.html'), args=[quiz_id])
+    
+    return render(request, 'quiz/create.html', context)

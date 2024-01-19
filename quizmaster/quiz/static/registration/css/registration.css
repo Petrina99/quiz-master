@@ -61,16 +61,16 @@
 }
 
 .form-btn-div button:hover {
-    background-color: greenyellow;
-    color: black;
-}
-
-.link-to-login {
+    background-color: green;
     color: white;
 }
 
+.link-to-login {
+    color: black;
+}
+
 .link-to-login a {
-    color: greenyellow;
+    color: #004643;
     font-weight: bold;
 }
 

@@ -4,8 +4,10 @@
 
 {% for quiz in quizzes %}
     <div>
-        <h2>{{ quiz.quiz_name }}</h2>
-        <p>Napravljen: {{ quiz.pub_date }}</p>
+        <h2>
+            <a href="{% url 'quiz:detail' quiz.id %}">{{ quiz.quiz_name }}</a>
+        </h2>
+        <p>Made at: {{ quiz.pub_date }}</p>
         <a> 
             <button>Rješavanje kviza</button>
         </a>
