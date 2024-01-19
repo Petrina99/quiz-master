@@ -9,10 +9,10 @@
     <div class="home-main">
         <h2>Solve quizzes or create your own</h2>
         <div class="link-container">
-            <a>All Quizzes</a>
+            <a href="{% url 'quiz:quiz_list' %}">All Quizzes</a>
         </div>
         <div class="link-container">
-            <a href="{% url 'quiz:create_quiz' %}">Create your own Quiz</a>
+            <a href="/">Create your own Quiz</a>
         </div> 
     </div>
 </div>

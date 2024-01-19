@@ -67,3 +67,14 @@ def login_user(request):
             return render(request, 'registration/login.html', context)
     
     return render(request, 'registration/login.html')
+
+def quiz_list(request):
+
+    context = {}
+    quizzes = Quiz.objects.all()
+
+    context = {
+        "quizzes": quizzes
+    }
+    
+    return render(request, 'quiz/list.html', context)

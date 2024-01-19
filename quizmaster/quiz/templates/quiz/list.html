@@ -1,11 +1,5 @@
 {% extends 'quiz/base.html' %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista Kvizova</title>
-</head>
-<body>
-
+{% block content %}
 <h1>Svi kvizovi</h1>
 
 {% for quiz in quizzes %}
@@ -18,5 +12,4 @@
     </div>
 {% endfor %}
 
-</body>
-</html>
+{% endblock content %}
