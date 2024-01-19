@@ -1,10 +1,21 @@
 {% extends "quiz/base.html" %}
 {% block content %}
 
+{% if error %}
+<p>You have to login to see this</p>
+{% endif %}
 <div>
     <p>{{ quiz.quiz_name }}</p>
     <p>Made at: {{ quiz.pub_date }}</p>
     <p>Author: {{ quiz.author }}</p>
+    <div>
+        {% for question in quiz.question_set.all %}
+            <p>{{ question.question_text }}</p>
+        {% endfor %}
+    </div>
+    {% if quiz.author == request.user %}
+        <a href="{% url 'quiz:create_question' quiz.id %}">Add question</a>
+    {% endif %}
 </div>
 {% endblock content %}
 

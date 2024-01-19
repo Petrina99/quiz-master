@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Quiz, Question
+from .models import Quiz, Question, Answer
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -92,17 +92,38 @@ def detail(request, quiz_id):
     return render(request, 'quiz/detail.html', context)
 
 def create_quiz(request):
-    context = {}
 
     if request.method == "POST" and request.user.is_authenticated:
         title = request.POST["title"]
         
         quiz = Quiz(quiz_name=title, author=request.user)
         quiz.save()
-
-        context = {
-            "quiz": quiz
-        }
-        return HttpResponseRedirect(reverse('quiz:detail.html'), args=[quiz_id])
+        
+        return HttpResponseRedirect(reverse('quiz:detail', args=[quiz.id, ]))
     
-    return render(request, 'quiz/create.html', context)
+    return render(request, 'quiz/create.html')
+
+def create_question(request, quiz_id):
+    quiz = get_object_or_404(Quiz, pk=quiz_id)
+
+    context = {
+        "quiz": quiz,
+        "range": range(1, 5)
+    }
+
+    if request.method == "POST" and request.user.is_authenticated:
+        title = request.POST["title"]
+            
+        question = Question(question_text=title, quiz=quiz)
+        
+        question.save()
+
+        # jos skontamo kak dobit koji je radio button upaljen i gasiramo
+        for i in range(1, 5):
+            curr_ans = request.POST["answer_" + str(i)]
+            answer = Answer(answer_text=curr_ans, is_correct=False, question=question)
+            answer.save()
+
+        return HttpResponseRedirect(reverse('quiz:detail', args=[quiz.id, ]))
+    
+    return render(request, 'quiz/create_question.html', context)

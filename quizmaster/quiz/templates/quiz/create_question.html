@@ -1,0 +1,27 @@
+{% extends "quiz/base.html" %}
+{% block content %}
+
+<div>
+    <h2>Add question for: {{ quiz.quiz_name }}</h2>
+    <p>Existing questions: </p>
+    {% for question in quiz.question_set.all %}
+        <p>{{ question.question_text }}</p>
+    {% endfor %}
+    <form method="post" action="{% url 'quiz:create_question' quiz.id %}">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Question text">
+        {% for i in range %}
+            <div>
+                <input type="text" name="answer_{{i}}" placeholder="Answer no. {{i}}" required>
+            </div>
+        {% endfor %}
+        <p>Select which of the answers is correct</p>
+        {% for i in range %}
+            <input type="radio" name="radio_button" value="answer{{i}}" required>
+        {% endfor %}
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+{% endblock content %}
+
