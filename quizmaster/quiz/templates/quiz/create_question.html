@@ -17,7 +17,7 @@
         {% endfor %}
         <p>Select which of the answers is correct</p>
         {% for i in range %}
-            <input type="radio" name="radio_button" value="answer{{i}}" required>
+            <input type="radio" name="radio_button" value="radio_answer_{{i}}" required>
         {% endfor %}
         <button type="submit">Add</button>
     </form>

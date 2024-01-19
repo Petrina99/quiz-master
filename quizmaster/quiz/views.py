@@ -118,10 +118,13 @@ def create_question(request, quiz_id):
         
         question.save()
 
-        # jos skontamo kak dobit koji je radio button upaljen i gasiramo
         for i in range(1, 5):
             curr_ans = request.POST["answer_" + str(i)]
-            answer = Answer(answer_text=curr_ans, is_correct=False, question=question)
+            if request.POST["radio_button"] == "radio_answer_" + str(i):
+                is_corr = True
+            else:
+                is_corr = False
+            answer = Answer(answer_text=curr_ans, is_correct=is_corr, question=question)
             answer.save()
 
         return HttpResponseRedirect(reverse('quiz:detail', args=[quiz.id, ]))
