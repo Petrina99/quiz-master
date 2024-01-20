@@ -4,9 +4,21 @@
 {% if request.user.is_authenticated %}
 <div>
     <h2>Add question for: {{ quiz.quiz_name }}</h2>
+    {% if request.user == quiz.author %}
+        <form method="post" action="{% url 'quiz:delete_quiz' quiz.id %}">
+            {% csrf_token %}
+            <button type="submit">Delete quiz</button>
+        </form>
+    {% endif %}
     <p>Existing questions: </p>
     {% for question in quiz.question_set.all %}
         <p>{{ question.question_text }}</p>
+        {% if request.user == quiz.author %}
+            <form method="post" action="{% url 'quiz:delete_question' question.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        {% endif %}
     {% endfor %}
     <form method="post" action="{% url 'quiz:create_question' quiz.id %}">
         {% csrf_token %}

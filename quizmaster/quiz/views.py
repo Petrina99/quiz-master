@@ -13,12 +13,9 @@ from .models import Quiz
 # Create your views here.
 def home(request):
 
-    context = {}
-    return render(request, 'quiz/home.html', context)
+    return render(request, 'quiz/home.html')
 
 def register_user(request):
-
-    context = {}
 
     if request.method == "POST":
         username = request.POST['username']
@@ -50,8 +47,6 @@ def register_user(request):
     return render(request, 'registration/register.html')
 
 def login_user(request):
-
-    context = {}
 
     if request.method == "POST":
         username = request.POST['username']
@@ -99,17 +94,31 @@ def create_quiz(request):
         quiz = Quiz(quiz_name=title, author=request.user)
         quiz.save()
         
-        return HttpResponseRedirect(reverse('quiz:detail', args=[quiz.id, ]))
+        return HttpResponseRedirect(reverse('quiz:edit_quiz', args=[quiz.id, ]))
     
-    return render(request, 'quiz/create.html')
+    return render(request, 'quiz/create_quiz.html')
 
-def create_question(request, quiz_id):
+def delete_quiz(request, quiz_id):
+
+    if request.method == "POST" and request.user.is_authenticated:
+        quiz = get_object_or_404(Quiz, pk=quiz_id)
+        quiz.delete()
+
+        return render(request, 'quiz/home.html')
+    
+def edit_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, pk=quiz_id)
 
     context = {
         "quiz": quiz,
         "range": range(1, 5)
     }
+        
+    return render(request, 'quiz/edit_quiz.html', context)
+
+def create_question(request, quiz_id):
+
+    quiz = get_object_or_404(Quiz, pk=quiz_id)
 
     if request.method == "POST" and request.user.is_authenticated:
         title = request.POST["title"]
@@ -127,6 +136,14 @@ def create_question(request, quiz_id):
             answer = Answer(answer_text=curr_ans, is_correct=is_corr, question=question)
             answer.save()
 
-        return HttpResponseRedirect(reverse('quiz:detail', args=[quiz.id, ]))
+        return HttpResponseRedirect(reverse('quiz:edit_quiz', args=[quiz.id, ]))
 
-    return render(request, 'quiz/create_question.html', context)
+def delete_question(request, question_id):
+
+    if request.method == "POST" and request.user.is_authenticated:
+        question = get_object_or_404(Question, pk=question_id)
+        question.delete()
+
+        return HttpResponseRedirect(reverse('quiz:edit_quiz', args=[question.quiz.id, ]))
+
+

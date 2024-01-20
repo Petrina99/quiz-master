@@ -14,7 +14,7 @@
         {% endfor %}
     </div>
     {% if quiz.author == request.user %}
-        <a href="{% url 'quiz:create_question' quiz.id %}">Add question</a>
+        <a href="{% url 'quiz:edit_quiz' quiz.id %}">Edit quiz</a>
     {% endif %}
 </div>
 {% endblock content %}
