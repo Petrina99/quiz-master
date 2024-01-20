@@ -128,5 +128,5 @@ def create_question(request, quiz_id):
             answer.save()
 
         return HttpResponseRedirect(reverse('quiz:detail', args=[quiz.id, ]))
-    
+
     return render(request, 'quiz/create_question.html', context)

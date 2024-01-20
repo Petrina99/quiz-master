@@ -1,6 +1,7 @@
 {% extends "quiz/base.html" %}
 {% block content %}
 
+{% if request.user.is_authenticated %}
 <div>
     <h2>Add question for: {{ quiz.quiz_name }}</h2>
     <p>Existing questions: </p>
@@ -22,6 +23,8 @@
         <button type="submit">Add</button>
     </form>
 </div>
-
+{% else %}
+    <p>You have to be logged in to create a quiz</p>
+{% endif %}
 {% endblock content %}
 

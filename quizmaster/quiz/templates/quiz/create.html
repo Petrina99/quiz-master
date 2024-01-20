@@ -1,6 +1,7 @@
 {% extends "quiz/base.html" %}
 {% block content %}
 
+{% if request.user.is_authenticated %}
 <div>
     <form method="post" action="{% url 'quiz:create_quiz' %}">
         {% csrf_token %}
@@ -8,5 +9,7 @@
         <button type="submit">Create</button>
     </form>
 </div>
-
+{% else %}
+    <p>You have to be logged in to create a quiz</p>
+{% endif %}
 {% endblock content %}
