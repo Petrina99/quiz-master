@@ -1,0 +1,16 @@
+{% extends "quiz/base.html" %}
+{% block content %}
+
+<div>
+    <p>{{ question.question_text }}</p>
+    <div>
+        {% for answer in question.answer_set.all %}
+            <p>{{ answer.answer_text }}<span> {{ answer.is_correct }}</span></p>
+        {% endfor %}
+    </div>
+    {% if question.quiz.author == request.user %}
+        <a href="{% url 'quiz:edit_quiz' question.quiz.id %}">Edit quiz</a>
+    {% endif %}
+</div>
+
+{% endblock content %}

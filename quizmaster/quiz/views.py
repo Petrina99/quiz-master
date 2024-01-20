@@ -84,7 +84,7 @@ def detail(request, quiz_id):
         "quiz": quiz
     }
 
-    return render(request, 'quiz/detail.html', context)
+    return render(request, 'quiz/quiz_detail.html', context)
 
 def create_quiz(request):
 
@@ -146,4 +146,12 @@ def delete_question(request, question_id):
 
         return HttpResponseRedirect(reverse('quiz:edit_quiz', args=[question.quiz.id, ]))
 
+def question_detail(request, question_id):
+    context = {}
 
+    question = get_object_or_404(Question, pk=question_id)
+    context = {
+        "question": question
+    }
+
+    return render(request, 'quiz/question_detail.html', context)

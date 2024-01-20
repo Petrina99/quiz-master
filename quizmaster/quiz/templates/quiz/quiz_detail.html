@@ -1,9 +1,6 @@
 {% extends "quiz/base.html" %}
 {% block content %}
 
-{% if error %}
-<p>You have to login to see this</p>
-{% endif %}
 <div>
     <p>{{ quiz.quiz_name }}</p>
     <p>Made at: {{ quiz.pub_date }}</p>

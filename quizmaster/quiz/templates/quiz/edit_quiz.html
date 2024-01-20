@@ -12,7 +12,9 @@
     {% endif %}
     <p>Existing questions: </p>
     {% for question in quiz.question_set.all %}
-        <p>{{ question.question_text }}</p>
+        <p>
+            <a href="{% url 'quiz:question_detail' question.id %}">{{ question.question_text }}</a>
+        </p>
         {% if request.user == quiz.author %}
             <form method="post" action="{% url 'quiz:delete_question' question.id %}">
                 {% csrf_token %}
