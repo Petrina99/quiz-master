@@ -1,17 +1,28 @@
 {% extends 'quiz/base.html' %}
 {% block content %}
-<h1>Svi kvizovi</h1>
 
+
+<div class="quiz-list-layout">
+    <h1 class="quiz-list-heading">All Quizzes</h1>
 {% for quiz in quizzes %}
-    <div>
-        <h2>
-            <a href="{% url 'quiz:detail' quiz.id %}">{{ quiz.quiz_name }}</a>
-        </h2>
-        <p>Made at: {{ quiz.pub_date }}</p>
-        <a> 
-            <button>Rješavanje kviza</button>
-        </a>
+    <div class="quiz-list-item">
+        <div class="list-item-info">
+            <h2 class="list-item-heading">
+                <a href="{% url 'quiz:detail' quiz.id %}">{{ quiz.quiz_name }}</a>
+            </h2>   
+            <p>Author: <span class="list-item-span">{{ quiz.author }}</span></p>
+            <p>Made at: <span class="list-item-span">{{ quiz.pub_date }}</span></p>
+            <p>Likes: <!-- broj lajkova --><span class="list-item-span">52</span></p>
+            <p>Comments: <!-- broj komentara --><span class="list-item-span">23</span></p>
+        </div>
+        <!-- href treba promjenit kad napravimo view za rješavanje kviza -->
+        <div class="list-item-button-div">
+            <a href="/"> 
+                <button class="list-item-button">Play Now</button>
+            </a>
+        </div>
     </div>
 {% endfor %}
+</div>
 
 {% endblock content %}

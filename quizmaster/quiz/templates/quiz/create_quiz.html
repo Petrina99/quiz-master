@@ -6,6 +6,14 @@
     <form method="post" action="{% url 'quiz:create_quiz' %}">
         {% csrf_token %}
         <input type="text" id="title" name="title" placeholder="Quiz name">
+        <textarea 
+            id="description" 
+            name="description" 
+            placeholder="Quiz description"
+            cols=30
+            rows=5
+            required
+        ></textarea>
         <button type="submit">Create</button>
     </form>
 </div>

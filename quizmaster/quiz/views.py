@@ -90,8 +90,8 @@ def create_quiz(request):
 
     if request.method == "POST" and request.user.is_authenticated:
         title = request.POST["title"]
-        
-        quiz = Quiz(quiz_name=title, author=request.user)
+        description = request.POST["description"]
+        quiz = Quiz(quiz_name=title, description=description, author=request.user)
         quiz.save()
         
         return HttpResponseRedirect(reverse('quiz:edit_quiz', args=[quiz.id, ]))
@@ -122,7 +122,6 @@ def create_question(request, quiz_id):
 
     if request.method == "POST" and request.user.is_authenticated:
         title = request.POST["title"]
-            
         question = Question(question_text=title, quiz=quiz)
         
         question.save()
