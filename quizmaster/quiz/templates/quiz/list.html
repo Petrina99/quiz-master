@@ -9,11 +9,13 @@
         <div class="list-item-info">
             <h2 class="list-item-heading">
                 <a href="{% url 'quiz:detail' quiz.id %}">{{ quiz.quiz_name }}</a>
-            </h2>   
-            <p>Author: <span class="list-item-span">{{ quiz.author }}</span></p>
-            <p>Made at: <span class="list-item-span">{{ quiz.pub_date }}</span></p>
-            <p>Likes: <!-- broj lajkova --><span class="list-item-span">52</span></p>
-            <p>Comments: <!-- broj komentara --><span class="list-item-span">23</span></p>
+            </h2>
+            <!-- link na profil treba napravit jednog dana -->   
+            <p>Author: <span style="font-weight: bold;">{{ quiz.author }}</span></p>
+            <p>Made at: <span style="font-weight: bold;">{{ quiz.pub_date }}</span></p>
+            <p>Number of questions: <span style="font-weight: bold;">{{ quiz.question_set.count }}</span></p>
+            <p>Likes: <!-- broj lajkova --><span style="font-weight: bold;">52</span></p>
+            <p>Comments: <!-- broj komentara --><span style="font-weight: bold;">23</span></p>
         </div>
         <!-- href treba promjenit kad napravimo view za rješavanje kviza -->
         <div class="list-item-button-div">
