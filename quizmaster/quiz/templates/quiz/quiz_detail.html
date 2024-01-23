@@ -45,5 +45,31 @@
         </div>
     </div>
 {% endif %}
+
+<div>
+    <h1>Komentari</h1> 
+    {% for comment in quiz.comments.all %}
+        <p>
+            <strong>{{comment.user.username}}</strong>
+            ( {{ comment.pub_date }} ) <br/>
+            {{ comment.comment_text }}
+        </p>
+    {% endfor %}
+    {% if request.user.is_authenticated %}
+    <form action="{% url 'quiz:post_comment' quiz.id %} " method="post">
+        {% csrf_token %}
+        <p>
+            <label for="comment_text">Text</label>
+            <input id="comment_text" name="comment_text" type="text">
+        </p>
+        <input type="submit">
+    </form>
+    {% else %}
+    <p>Morate biti prijavljeni za komentiranje
+        <a href="{% url 'login' %}">Prijavi se</a>
+    </p>
+    {% endif %}
+</div>
+
 {% endblock content %}
 

@@ -8,7 +8,8 @@ from django.contrib.auth import authenticate, login
 
 from django.urls import reverse
 
-from .models import Quiz
+from .models import Quiz, Comment
+
 
 # Create your views here.
 def home(request):
@@ -154,3 +155,15 @@ def question_detail(request, question_id):
     }
 
     return render(request, 'quiz/question_detail.html', context)
+
+def post_comment(request, quiz_id):
+    quiz = get_object_or_404(Quiz, pk=quiz_id)
+    if request.method == "POST" and request.user.is_authenticated:
+        comment = Comment(
+            user = request.user,
+            comment_text=request.POST['comment_text'],
+            quiz=quiz
+        )
+        comment.save()
+
+    return HttpResponseRedirect(reverse("quiz:detail", args=[quiz_id,]))
