@@ -68,7 +68,7 @@
             {% csrf_token %}
             <input id="comment_text" name="comment_text" type="text" placeholder="Enter your comment here">
             <div class="comment-btn-div">
-                <button type="submit" class="lis">Submit</button>
+                <button type="submit" class="list-item-button">Submit</button>
             </div>
         </form>
     {% else %}
@@ -79,9 +79,10 @@
    
 </div>
 <div class="detail-button-div">
-    <a href="{% url 'quiz:like' quiz.id %}">
-        <button class="list-item-button">Like</button>
-    </a>
+    <form method="post" action="{% url 'quiz:like' quiz.id %}">
+        {% csrf_token %}
+        <button type="submit" class="list-item-button">Like</button>
+    </form>
 </div>
 
 {% endblock content %}

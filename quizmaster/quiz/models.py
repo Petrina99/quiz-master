@@ -9,23 +9,7 @@ class Quiz(models.Model):
     
     def __str__(self):
         return self.quiz_name
-    
-    def liked_by(self, user):
-        try:
-            return self.likes.filter(author=user).count() > 0
-        except:
-            return False
-        
-    def toggle_like(self, user):
-        
-        if self.liked_by:
-            like = self.likes.filter(author=user).first()
-            like.delete()
-            return False
-        else:
-            like = self.likes.create(author=user, quiz= self)
-            return True
-
+   
 class Question(models.Model):
     question_text = models.CharField(max_length=200, blank=False)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
@@ -52,16 +36,20 @@ class Comment(models.Model):
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='likes')
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="likes")
 
     def __str__(self):
         return f"{self.user.username} likes {self.quiz.quiz_name}"
 
-
-class UserQuiz(models.Model):
+class QuizResult(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     score = models.IntegerField(blank=False)
-
+    
     def __str__(self):
         return self.score
+
+class Choice(models.Model):
+    correct = models.BooleanField()
+    current_quiz = models.ForeignKey(QuizResult, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
