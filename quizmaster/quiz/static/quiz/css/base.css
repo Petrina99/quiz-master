@@ -1,9 +1,16 @@
+/* colors: 
+    background: #FFFFFF,
+    dark-blue: #001D3D,
+    light-blue: #003566
+    yellow: #FFC300,
+*/
+
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
     font-family: 'Montserrat', sans-serif;
-    background: #121212;
+    background: #001D3D;
 }
 
 button, input {
@@ -32,14 +39,14 @@ button:focus {
     justify-content: space-between;
     align-items: center;
     padding: 1em 3em;
-    background-color: #012C2A;
+    background-color: #003566;
 }
 
 .header-brand {
     color: white;
-    background-color: #004643;
+    background-color: #001D3D;
     border-radius: 10px;
-    padding: 1em;
+    padding: 1.5em;
 }
 
 .home-link {
@@ -52,6 +59,7 @@ button:focus {
 
 .login-link {
     color: white;
+    font-weight: bold;
 }
 
 .login-link:hover {
@@ -61,7 +69,7 @@ button:focus {
 .header-nav {
     display: flex;
     align-items: center;
-    background-color: #004643;
+    background-color: #001D3D;
     border-radius: 10px;
     padding: 1em;
     color: white;
@@ -82,17 +90,19 @@ button:focus {
 }
 
 .logout-form button {
-    border: 1px solid white;
+    border: 1px solid transparent;
     border-radius: 10px;
     padding: 10px;
-    background: transparent;
+    background: #003566;
     color: white;
     font-size: 16px;
     cursor: pointer;
+    font-weight: bold;
+    padding: 1em;
 }
 
 .logout-form button:hover {
-    background-color: white;
+    background-color: #FFC300;
     color: black;
 }
 

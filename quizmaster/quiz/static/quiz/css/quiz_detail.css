@@ -5,14 +5,14 @@
     align-items: center;
     flex-wrap: wrap;
     padding: 2em;
-    background-color: #004643;
     margin-top: 30px;
     border-radius: 10px;
     color: white;
+    background: #003566;
 }
 
 .quiz-detail-info {
-    flex-basis: 50%;
+    flex-basis: 70%;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -20,7 +20,7 @@
 }
 
 .detail-button-div {
-    flex-basis: 50%;
+    flex-basis: 30%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -28,15 +28,34 @@
 
 .quiz-detail-heading {
     flex-basis: 100%;
+    margin-bottom: 20px;
+    background: #001D3D;
+    border-radius: 10px;
+}
+
+.quiz-detail-heading h1 {
+    padding: 0.5em 0;
+    text-align: center;
+}
+
+.quiz-desc-heading {
+    flex-basis: 100%;
+    margin-bottom: 10px;
+    padding: 0 20px;
 }
 
 .quiz-detail-info p {
     flex-basis: 100%;
+    padding: 0.2em 20px;
 }
 
 .quiz-detail-desc {
     flex-basis: 100%;
     margin-top: 15px;
+}
+
+.quiz-detail-desc p {
+    padding: 0.2em 20px;
 }
 
 .quiz-detail-questions {
@@ -46,12 +65,13 @@
     display: flex;
     flex-wrap: wrap;
     color: white;
-    background-color: #004643;
+    background: #003566;
     border-radius: 10px;
 }
 
 .quiz-detail-questions h2 {
     flex-basis: 100%;
+    margin-bottom: 15px;
 }
 
 .detail-question-heading {
@@ -66,14 +86,14 @@
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 10px;
     margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .detail-answers-item {
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid white;
+    background: #001D3D;
     padding: 1em;
-    border-radius: 10px;
 }
 
 .detail-answers-item p {
@@ -86,4 +106,96 @@
     margin-top: 15px;
     display: flex;
     justify-content: flex-end;
+}
+
+.comments-layout {
+    flex-basis: 70%;
+    background: #003566;
+    padding: 2em;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.comments-heading {
+    color: white;
+    flex-basis: 100%;
+    margin-bottom: 15px;
+}
+
+.comments-container {
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.comment-item {
+    flex-basis: 100%;
+    background: #001D3D;
+    padding: 1em;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.comment-item-header {
+    color: white;
+    font-weight: bold;
+    padding: 0 1em;
+}
+
+.comment-date {
+    font-size: smaller;
+}
+
+.comment-item-content {
+    color: white;
+    margin-top: 15px;
+    background: #003566;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+.comment-login {
+    color: white;
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.comment-login a {
+    font-weight: bold;
+    color: #FFC300;
+}
+
+.comment-login a:hover {
+    text-decoration: underline;
+}
+
+.comment-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.comment-form input {
+    flex-basis: 100%;
+    border-radius: 10px;
+    background: #001D3D;
+    border: none;
+    padding: 1em;
+    color: white;
+    font-size: medium;
+}
+
+.comment-btn-div {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
 }

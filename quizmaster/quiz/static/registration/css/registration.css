@@ -23,7 +23,7 @@
     padding: 2em;
     border-radius: 10px;
     margin-top: 15px;
-    background-color: #012C2A;
+    background-color: #003566;
 }
 
 .form-input-div {
@@ -36,41 +36,28 @@
 }
 
 .form-input-div input {
-    width: 70%;
+    width: 80%;
     padding: 1em;
-    background: #004643;
+    font-size: medium;
+    background: #001D3D;
     border: none;
     color: white;
     border-radius: 10px;
 }
 
 .form-btn-div {
-    width: 70%;
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 
-.form-btn-div button {
-    border: none;
-    padding: 1em 2em;
-    border-radius: 10px;
-    background: #004643;
-    color: white;
-    cursor: pointer;
-}
-
-.form-btn-div button:hover {
-    background-color: green;
-    color: white;
-}
-
 .link-to-login {
-    color: black;
+    color: white;
 }
 
 .link-to-login a {
-    color: #004643;
+    color: #FFC300;
     font-weight: bold;
 }
 

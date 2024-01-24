@@ -4,13 +4,13 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 2em;
+    padding: 1em 2em;
 }
 
 .quiz-list-heading {
     flex-basis: 100%;
     padding-left: 1em;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: white;
 }
 
@@ -22,13 +22,17 @@
     align-items: stretch;
     margin-bottom: 25px;
     border-radius: 10px;
-    background-color: #004643;
+    background-color: #003566;
     color: white;
 }
 
 .list-item-heading {
     flex-basis: 100%;
     margin-bottom: 10px;
+    background: #001D3D;
+    border-radius: 10px;
+    text-align: center;
+    padding: 0.5em 0;
 }
 
 .list-item-heading a {
@@ -45,6 +49,7 @@
 
 .list-item-info p {
     width: 100%;
+    padding: 0.2em;
 }
 
 .list-item-button-div {
@@ -58,15 +63,14 @@
     padding: 1em 3em;
     border: none;
     cursor: pointer;
-    background-color: transparent;
-    border: 3px solid white;
+    background-color: #001D3D;
     color: white;
     border-radius: 10px;
     font-weight: bold;
+    font-size: medium;
 }
 
 .list-item-button:hover {
-    background-color: white;
-    border: 3px solid transparent;
+    background-color: #FFC300;
     color: black;
 }

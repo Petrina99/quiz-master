@@ -6,10 +6,10 @@
     <h1 class="quiz-list-heading">All Quizzes</h1>
 {% for quiz in quizzes %}
     <div class="quiz-list-item">
+        <h2 class="list-item-heading">
+            <a href="{% url 'quiz:detail' quiz.id %}">{{ quiz.quiz_name }}</a>
+        </h2>
         <div class="list-item-info">
-            <h2 class="list-item-heading">
-                <a href="{% url 'quiz:detail' quiz.id %}">{{ quiz.quiz_name }}</a>
-            </h2>
             <!-- link na profil treba napravit jednog dana -->   
             <p>Author: <span style="font-weight: bold;">{{ quiz.author }}</span></p>
             <p>Made at: <span style="font-weight: bold;">{{ quiz.pub_date }}</span></p>
