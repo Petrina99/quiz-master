@@ -2,19 +2,25 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
-<div>
-    <form method="post" action="{% url 'quiz:create_quiz' %}">
+<div class="quiz-create-layout">
+    <div class="quiz-create-header">
+        <h1>Create a quiz</h2>
+    </div>
+    <form method="post" action="{% url 'quiz:create_quiz' %}" class="quiz-create-form">
         {% csrf_token %}
-        <input type="text" id="title" name="title" placeholder="Quiz name">
+        <input type="text" id="title" name="title" placeholder="Quiz name" class="quiz-create-title" required>
         <textarea 
             id="description" 
             name="description" 
             placeholder="Quiz description"
             cols=30
-            rows=5
+            rows=7
             required
+            class="quiz-create-desc"
         ></textarea>
-        <button type="submit">Create</button>
+        <div class="create-button-div">
+            <button type="submit" class="list-item-button">Create</button>
+        </div>
     </form>
 </div>
 {% else %}

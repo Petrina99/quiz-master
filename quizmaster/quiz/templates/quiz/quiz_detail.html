@@ -2,13 +2,15 @@
 {% block content %}
 
 <div class="quiz-detail-layout">
+    <div class="quiz-detail-heading">
+        <h1>{{ quiz.quiz_name }}</h1>
+    </div>
     <div class="quiz-detail-info">
-        <h1 class="quiz-detail-heading"><span style="font-weight: normal;">Quiz name:</span> {{ quiz.quiz_name }}</h1>
         <p>Made at: <span style="font-weight: bold;">{{ quiz.pub_date }}</span></p>
         <p>Author: <span style="font-weight: bold;">{{ quiz.author }}</span></p>
         <p>Number of questions: <span style="font-weight: bold;">{{ quiz.question_set.count }}</span></p>
-        <p>Likes: <!-- broj lajkova --><span style="font-weight: bold;">52</span></p>
-        <p>Comments: <!-- broj komentara --><span style="font-weight: bold;">23</span></p>
+        <p>Likes: <span style="font-weight: bold;">{{ quiz.likes.count }}</span></p>
+        <p>Comments: <span style="font-weight: bold;">{{ quiz.comments.count }}</span></p>
     </div>
     <div class="detail-button-div">
         <!-- promjenit href na rjesavanje kviza kad se napravi-->
@@ -17,7 +19,7 @@
         </a>
     </div>
     <div class="quiz-detail-desc">
-        <h2 class="quiz-detail-heading">Quiz description: </h2>
+        <h2 class="quiz-desc-heading">Quiz description: </h2>
         <p>{{ quiz.description }}</p>
     </div>
 </div>
@@ -32,7 +34,7 @@
                     <div class="detail-answers-item">
                         <p>{{ answer.answer_text }}</p>
                         {% if answer.is_correct == True %}
-                            <p style="color: greenyellow;">Correct</p>
+                            <p style="color: #FFC300;">Correct</p>
                         {% endif %}
                     </div>
                 {% endfor %}
@@ -45,5 +47,42 @@
         </div>
     </div>
 {% endif %}
+
+<div class="comments-layout">
+    <h1 class="comments-heading">Comments</h1>
+    <div class="comments-container">
+        {% for comment in quiz.comments.all %}
+            <div class="comment-item">
+                <div class="comment-item-header">
+                    <p>@{{ comment.user.username }}</p>
+                    <p class="comment-date">{{ comment.pub_date }}</p>
+                </div>
+                <div class="comment-item-content">
+                    <p>{{ comment.comment_text }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'quiz:post_comment' quiz.id %} " method="post" class="comment-form">
+            {% csrf_token %}
+            <input id="comment_text" name="comment_text" type="text" placeholder="Enter your comment here">
+            <div class="comment-btn-div">
+                <button type="submit" class="lis">Submit</button>
+            </div>
+        </form>
+    {% else %}
+        <p class="comment-login">You have to be logged in to comment |
+            <a href="{% url 'login' %}">Login</a>
+        </p>
+    {% endif %}
+   
+</div>
+<div class="detail-button-div">
+    <a href="{% url 'quiz:like' quiz.id %}">
+        <button class="list-item-button">Like</button>
+    </a>
+</div>
+
 {% endblock content %}
 

@@ -1,14 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Quiz, Question, Answer
+from .models import Quiz, Question, Answer, Comment, Like
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
 from django.urls import reverse
-
-from .models import Quiz, Like
 
 # Create your views here.
 def home(request):
@@ -156,14 +154,22 @@ def question_detail(request, question_id):
     return render(request, 'quiz/question_detail.html', context)
 
 
+def post_comment(request, quiz_id):
+    quiz = get_object_or_404(Quiz, pk=quiz_id)
+    if request.method == "POST" and request.user.is_authenticated:
+        comment = Comment(
+            user = request.user,
+            comment_text=request.POST['comment_text'],
+            quiz=quiz
+        )
+        comment.save()
+
+    return HttpResponseRedirect(reverse("quiz:detail", args=[quiz_id,]))
+
 def like_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
 
-    # Check if the user has already liked the quiz
-    like_exists = Like.objects.filter(user=request.user, quiz=quiz).exists()
-
-    if not like_exists:
-        # Create a new like for the user and the quiz
-        Like.objects.create(user=request.user, quiz=quiz)
-
-    return redirect('quiz:quiz_list')  # Redirect to the page where the user came from
+    if request.method == 'POST' and request.user.is_authenticated:
+        quiz.toggle_like(request.user)
+        
+    return HttpResponseRedirect(reverse("quiz:detail", args=[quiz_id,]))
