@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Quiz, Question, Answer
@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login
 
 from django.urls import reverse
 
-from .models import Quiz
+from .models import Quiz, Like
 
 # Create your views here.
 def home(request):
@@ -154,3 +154,16 @@ def question_detail(request, question_id):
     }
 
     return render(request, 'quiz/question_detail.html', context)
+
+
+def like_quiz(request, quiz_id):
+    quiz = get_object_or_404(Quiz, id=quiz_id)
+
+    # Check if the user has already liked the quiz
+    like_exists = Like.objects.filter(user=request.user, quiz=quiz).exists()
+
+    if not like_exists:
+        # Create a new like for the user and the quiz
+        Like.objects.create(user=request.user, quiz=quiz)
+
+    return redirect('quiz:quiz_list')  # Redirect to the page where the user came from
