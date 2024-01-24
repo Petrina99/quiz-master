@@ -2,40 +2,56 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
-<div>
-    <h2>Add question for: {{ quiz.quiz_name }}</h2>
+<div class="quiz-edit-layout">
+    <div class="quiz-edit-header">
+        <h2>Add question for: {{ quiz.quiz_name }}</h2>
+    </div>
+    <div class="existing-questions">
+        <p>Existing questions: </p>
+    </div>
+    {% for question in quiz.question_set.all %}
+        <div class="exquestion-container">
+            <div class="exquestion-content">
+                <a href="{% url 'quiz:question_detail' question.id %}">{{ question.question_text }}</a>
+            </div>
+            {% if request.user == quiz.author %}
+                <form method="post" action="{% url 'quiz:delete_question' question.id %}" class="exquestion-delete">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <form method="post" action="{% url 'quiz:create_question' quiz.id %}" class="add-question-form">
+        <h2>Add a question</h2>
+        {% csrf_token %}
+        <div class="add-question-title">
+            <input type="text" name="title" placeholder="Question text" required>
+        </div>
+        <div class="add-answers-container">
+            {% for i in range %}
+                <input type="text" name="answer_{{i}}" placeholder="Answer no. {{i}}" required class="answer-text">
+            {% endfor %}
+        </div>
+        <div class="correct-answers-container">
+            <p>Select the correct answer</p>
+            {% for i in range %}
+                <div class="correct-answers-item">
+                    <span>{{i}}.</span>
+                    <input type="radio" name="radio_button" value="radio_answer_{{i}}" required>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="add-question-button-div">
+            <button type="submit" class="list-item-button">Add</button>
+        </div>
+    </form>
     {% if request.user == quiz.author %}
-        <form method="post" action="{% url 'quiz:delete_quiz' quiz.id %}">
+        <form method="post" action="{% url 'quiz:delete_quiz' quiz.id %}" class="quiz-delete-form">
             {% csrf_token %}
             <button type="submit">Delete quiz</button>
         </form>
     {% endif %}
-    <p>Existing questions: </p>
-    {% for question in quiz.question_set.all %}
-        <p>
-            <a href="{% url 'quiz:question_detail' question.id %}">{{ question.question_text }}</a>
-        </p>
-        {% if request.user == quiz.author %}
-            <form method="post" action="{% url 'quiz:delete_question' question.id %}">
-                {% csrf_token %}
-                <button type="submit">Delete</button>
-            </form>
-        {% endif %}
-    {% endfor %}
-    <form method="post" action="{% url 'quiz:create_question' quiz.id %}">
-        {% csrf_token %}
-        <input type="text" name="title" placeholder="Question text">
-        {% for i in range %}
-            <div>
-                <input type="text" name="answer_{{i}}" placeholder="Answer no. {{i}}" required>
-            </div>
-        {% endfor %}
-        <p>Select which of the answers is correct</p>
-        {% for i in range %}
-            <input type="radio" name="radio_button" value="radio_answer_{{i}}" required>
-        {% endfor %}
-        <button type="submit">Add</button>
-    </form>
 </div>
 {% else %}
     <p>You have to be logged in to create a quiz</p>
