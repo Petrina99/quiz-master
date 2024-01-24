@@ -9,6 +9,22 @@ class Quiz(models.Model):
     
     def __str__(self):
         return self.quiz_name
+    
+    def liked_by(self, user):
+        try:
+            return self.likes.filter(author=user).count() > 0
+        except:
+            return False
+        
+    def toggle_like(self, user):
+        
+        if self.liked_by:
+            like = self.likes.filter(author=user).first()
+            like.delete()
+            return False
+        else:
+            like = self.likes.create(author=user, quiz= self)
+            return True
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200, blank=False)
@@ -40,6 +56,7 @@ class Like(models.Model):
 
     def __str__(self):
         return f"{self.user.username} likes {self.quiz.quiz_name}"
+
 
 class UserQuiz(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

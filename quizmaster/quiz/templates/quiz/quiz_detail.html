@@ -9,8 +9,8 @@
         <p>Made at: <span style="font-weight: bold;">{{ quiz.pub_date }}</span></p>
         <p>Author: <span style="font-weight: bold;">{{ quiz.author }}</span></p>
         <p>Number of questions: <span style="font-weight: bold;">{{ quiz.question_set.count }}</span></p>
-        <p>Likes: <!-- broj lajkova --><span style="font-weight: bold;">52</span></p>
-        <p>Comments: <!-- broj komentara --><span style="font-weight: bold;">23</span></p>
+        <p>Likes: <span style="font-weight: bold;">{{ quiz.likes.count }}</span></p>
+        <p>Comments: <span style="font-weight: bold;">{{ quiz.comments.count }}</span></p>
     </div>
     <div class="detail-button-div">
         <!-- promjenit href na rjesavanje kviza kad se napravi-->
@@ -76,6 +76,12 @@
             <a href="{% url 'login' %}">Login</a>
         </p>
     {% endif %}
+   
+</div>
+<div class="detail-button-div">
+    <a href="{% url 'quiz:like' quiz.id %}">
+        <button class="list-item-button">Like</button>
+    </a>
 </div>
 
 {% endblock content %}

@@ -1,15 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Quiz, Question, Answer
+from .models import Quiz, Question, Answer, Comment, Like
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
 from django.urls import reverse
-
-from .models import Quiz, Comment
-
 
 # Create your views here.
 def home(request):
@@ -156,6 +153,7 @@ def question_detail(request, question_id):
 
     return render(request, 'quiz/question_detail.html', context)
 
+
 def post_comment(request, quiz_id):
     quiz = get_object_or_404(Quiz, pk=quiz_id)
     if request.method == "POST" and request.user.is_authenticated:
@@ -166,4 +164,12 @@ def post_comment(request, quiz_id):
         )
         comment.save()
 
+    return HttpResponseRedirect(reverse("quiz:detail", args=[quiz_id,]))
+
+def like_quiz(request, quiz_id):
+    quiz = get_object_or_404(Quiz, id=quiz_id)
+
+    if request.method == 'POST' and request.user.is_authenticated:
+        quiz.toggle_like(request.user)
+        
     return HttpResponseRedirect(reverse("quiz:detail", args=[quiz_id,]))
