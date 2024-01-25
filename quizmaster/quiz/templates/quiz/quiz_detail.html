@@ -7,7 +7,9 @@
     </div>
     <div class="quiz-detail-info">
         <p>Made at: <span style="font-weight: bold;">{{ quiz.pub_date }}</span></p>
-        <p>Author: <span style="font-weight: bold;">{{ quiz.author }}</span></p>
+        <p>Author: 
+            <a href="{% url 'quiz:user_profile' quiz.author.id %}" class="author-link">{{ quiz.author }}</a>
+        </p>
         <p>Number of questions: <span style="font-weight: bold;">{{ quiz.question_set.count }}</span></p>
         <p>Likes: <span style="font-weight: bold;">{{ quiz.likes.count }}</span></p>
         <p>Comments: <span style="font-weight: bold;">{{ quiz.comments.count }}</span></p>

@@ -79,10 +79,6 @@ button:focus {
     margin-right: 10px;
 }
 
-.user-span {
-    font-weight: bold;
-}
-
 .logout-form {
     display: flex;
     align-items: center;

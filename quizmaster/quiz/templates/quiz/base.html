@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="{% static 'quiz/css/quiz_detail.css' %}">
         <link rel="stylesheet" href="{% static 'quiz/css/quiz_create.css' %}">
         <link rel="stylesheet" href="{% static 'quiz/css/quiz_edit.css' %}">
+        <link rel="stylesheet" href="{% static 'quiz/css/user_profile.css' %}">
         <link rel="stylesheet" href="{% static 'registration/css/registration.css' %}">
     </head>
     <body>
@@ -27,8 +28,10 @@
                     <a class="admin-link" href="/admin">Go to admin</a>
                 {% endif %}
                 {% if request.user.is_authenticated %}
-                    <p class="nav-username">User: 
-                        <span class="user-span">{{ request.user.username }}</span>
+                    <p class="nav-username">User:
+                        <a href="{% url 'quiz:user_profile' request.user.id %}" class="author-link"> 
+                            {{ request.user.username }}
+                        </a>
                     </p>
                     <form method="post" action="{% url 'logout' %}" class="logout-form">
                         {% csrf_token %}

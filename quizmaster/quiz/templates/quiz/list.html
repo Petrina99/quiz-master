@@ -11,7 +11,9 @@
         </h2>
         <div class="list-item-info">
             <!-- link na profil treba napravit jednog dana -->   
-            <p>Author: <span style="font-weight: bold;">{{ quiz.author }}</span></p>
+            <p>Author: 
+                <a href="{% url 'quiz:user_profile' quiz.author.id %}" class="author-link">{{ quiz.author }}</a>
+            </p>
             <p>Made at: <span style="font-weight: bold;">{{ quiz.pub_date }}</span></p>
             <p>Number of questions: <span style="font-weight: bold;">{{ quiz.question_set.count }}</span></p>
             <p>Likes: <span style="font-weight: bold;">{{ quiz.likes.count }}</span></p>

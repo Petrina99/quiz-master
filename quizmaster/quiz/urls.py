@@ -20,5 +20,5 @@ urlpatterns = [
     path("<int:quiz_id>/solve/", views.solve_quiz, name="solve_quiz"),
     path("<int:quiz_id>/solve/result/", views.submit_quiz, name="submit_quiz"),
     path("<int:quiz_id>/solve/results/<int:result_id>/", views.result_quiz, name="result_quiz"),
-    path('profile/', views.user_profile, name="user_profile"),
+    path('<int:user_id>/profile/', views.user_profile, name="user_profile"),
 ]

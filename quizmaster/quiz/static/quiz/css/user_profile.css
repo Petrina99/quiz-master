@@ -1,0 +1,83 @@
+.profile-layout {
+    flex-basis: 70%;
+    background-color: #003566;
+    padding: 1em;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-heading {
+    flex-basis: 100%;
+    padding: 1em;
+    background-color: #001D3D;
+    border-radius: 10px;
+    color: white;
+}
+
+.profile-info {
+    flex-basis: 100%;
+    margin: 1em;
+    color: white;
+}
+
+.profile-content {
+    flex-basis: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+}
+
+.profile-content-div {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: start;
+    background-color: #001D3D;
+    color: white;
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.profile-heading-content {
+    flex-basis: 100%;
+    padding: 1em;
+    background-color: #003566;
+    border-radius: 10px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.profile-quizzes-container {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.profile-quizzes-item {
+    flex-basis: 100%;
+    padding: 1em;
+    background-color: #003566;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.item-created {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.quizzes-item-info {
+    width: 50%;
+}
+
+.profile-button-div {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

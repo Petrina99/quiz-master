@@ -199,3 +199,12 @@
     justify-content: flex-end;
     margin-top: 15px;
 }
+
+.author-link {
+    color: white;
+    font-weight: bold;
+}
+
+.author-link:hover {
+    text-decoration: underline;
+}

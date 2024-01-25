@@ -2,13 +2,60 @@
 
 {% block content %}
 
-<div class="quiz-detail-layout">
-    <div class="quiz-detail-heading">
-        <h1>{{ user_profile.user.username }}'s Profile</h1>
+<div class="profile-layout">
+    <div class="profile-heading">
+        <h1>{{ user_profile.username }}'s Profile</h1>
     </div>
-    <div class="quiz-detail-info">
-        <p>Total Solved Quizzes: {{ solved_quizzes }}</p>
-        <p>Average Percentage: {{ average_percentage }}%</p>
+    <div class="profile-info">
+        <p>Date joined: <span style="font-weight:bold;">{{ user_profile.date_joined }}</span></p>
+        <p>Total Solved Quizzes: <span style="font-weight:bold;">{{ quiz_results.count }}</span></p>
+        <p>Quizzes created: <span style="font-weight:bold;">{{ created_quizzes.count }}</span></p>
+        <p>Average Percentage: <span style="font-weight:bold;">{{ average_percentage }} %</span></p>
+    </div>
+    <div class="profile-content">
+        <div class="profile-content-div">
+            <div class="profile-heading-content">
+                <h2>Solved Quizzes</h2>
+            </div>
+            <div class="profile-quizzes-container">
+                {% for result in quiz_results %}
+                    <div class="profile-quizzes-item">
+                        <p>Quiz name: 
+                            <a href="{% url 'quiz:detail' result.quiz.id %}" class="author-link">{{ result.quiz.quiz_name }}</a>
+                        </p>
+                        <p>Score: {{ result.score }} %</p>
+                        <p>Correct answers: {{ result.correct_answers }} / {{ result.quiz.question_set.count }}</p>
+                        {% if request.user == result.user %}
+                            <a href="{% url 'quiz:result_quiz' result.quiz.id result.id %}" class="author-link" style="color:#FFC300;">
+                                Check result
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="profile-content-div">
+            <div class="profile-heading-content">
+                <h2>Created Quizzes</h2>
+            </div>
+            <div class="profile-quizzes-container">
+                {% for quiz in created_quizzes %}
+                    <div class="profile-quizzes-item item-created">
+                        <div class="quizzes-item-info">
+                            <p>Quiz name: 
+                                <a href="{% url 'quiz:detail' quiz.id %}" class="author-link">{{ quiz.quiz_name }}</a>
+                            </p>
+                            <p>Number of questions: {{ quiz.question_set.count }}</p>
+                        </div>
+                        <div class="profile-button-div">
+                            <a href="{% url 'quiz:solve_quiz' quiz.id %}">
+                                <button class="list-item-button" style="padding:1em 2em;font-size:small;">Play</button>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}  
+            </div>      
+        </div>
     </div>
 </div>
 
