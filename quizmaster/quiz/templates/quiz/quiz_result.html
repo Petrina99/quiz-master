@@ -1,0 +1,23 @@
+{% extends 'quiz/base.html' %}
+{% block content %}
+<div>
+    <h2>Quiz summary</h2>
+    <p>{{ quiz.quiz_name }}</p>
+    <p>{{ result.correct_answers }} / {{ quiz.question_set.count }}</p>
+    <p>{{ result.score }} %</p>
+    {% for item in content %}
+    <div>
+        <p>Question: {{ item.question.question_text }}</p>
+        {% for answer in item.question.answer_set.all %}
+            {% if answer.is_correct %}
+                <p style="color:green;">{{ answer.answer_text }}</p>
+            {% else %}
+                <p>{{ answer.answer_text }}</p>
+            {% endif %}
+        {% endfor %}
+        <p>User answered: {{ item.choice.answer.answer_text }}</p>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock content %}

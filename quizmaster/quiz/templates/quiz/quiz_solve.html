@@ -1,0 +1,28 @@
+{% extends "quiz/base.html" %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<div>
+    <h1>{{ quiz.quiz_name }}</h1>
+    <form method="post" action="{% url 'quiz:submit_quiz' quiz.id %}">
+        {% csrf_token %}
+        {% for question in quiz.question_set.all %}
+            <div>
+                <h2>{{ question.question_text }}</h3>
+                {% for answer in question.answer_set.all %}
+                    <div>
+                        <input type="radio" name="radio-{{question.id}}" value="{{answer.id}}" required>
+                        <p>{{ answer.answer_text }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit">Submit answers</button>
+    </form>
+</div>
+
+{% else %}
+<p>You have to be logged in to solve a quiz. <a href="{% url 'login' %}">Login here</a></p>
+{% endif %}
+
+{% endblock content %}

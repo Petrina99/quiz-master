@@ -14,7 +14,7 @@
     </div>
     <div class="detail-button-div">
         <!-- promjenit href na rjesavanje kviza kad se napravi-->
-        <a href="/">
+        <a href="{% url 'quiz:solve_quiz' quiz.id %}">
             <button class="list-item-button">Play Now</button>
         </a>
     </div>

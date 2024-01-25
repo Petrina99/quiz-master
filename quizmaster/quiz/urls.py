@@ -17,4 +17,7 @@ urlpatterns = [
     path('<int:question_id>/question/', views.question_detail, name="question_detail"),
     path('<int:quiz_id>/comments/new/', views.post_comment, name="post_comment"),
     path("<int:quiz_id>/like/", views.like_quiz, name="like"),
+    path("<int:quiz_id>/solve/", views.solve_quiz, name="solve_quiz"),
+    path("<int:quiz_id>/solve/result/", views.submit_quiz, name="submit_quiz"),
+    path("<int:quiz_id>/solve/results/<int:result_id>/", views.result_quiz, name="result_quiz")
 ]

@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Quiz, Question, Answer, Comment, Like
+from .models import Quiz, Question, Answer, Comment, Choice, QuizResult
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
 from django.urls import reverse
 
+import logging
+logger = logging.getLogger('django')
 # Create your views here.
 def home(request):
 
@@ -71,7 +73,7 @@ def quiz_list(request):
     context = {
         "quizzes": quizzes
     }
-    
+
     return render(request, 'quiz/list.html', context)
 
 def detail(request, quiz_id):
@@ -173,3 +175,69 @@ def like_quiz(request, quiz_id):
         quiz.toggle_like(request.user)
         
     return HttpResponseRedirect(reverse("quiz:detail", args=[quiz_id,]))
+
+def solve_quiz(request, quiz_id):
+    quiz = get_object_or_404(Quiz, pk=quiz_id)
+
+    context = {
+        "quiz": quiz,
+    }
+
+    return render(request, 'quiz/quiz_solve.html', context)
+
+def submit_quiz(request, quiz_id):
+    quiz = get_object_or_404(Quiz, pk=quiz_id)
+
+    if request.method == 'POST' and request.user.is_authenticated:
+        questions = quiz.question_set.all()
+        quiz_result = QuizResult(user=request.user, quiz=quiz, score=0, correct_answers=0)
+        quiz_result.save()
+
+        for question in questions:
+            correct_answer = question.answer_set.get(is_correct=True)
+            current_choice = request.POST["radio-" + str(question.id)]
+            current_answer = question.answer_set.get(pk=int(current_choice))
+
+            if int(current_choice) == correct_answer.id:
+                quiz_result.correct_answers += 1
+                choice = Choice(correct=True, quiz=quiz, current_quiz=quiz_result, question=question, answer=current_answer)
+                quiz_result.save()
+                choice.save()
+            else:
+                choice = Choice(correct=False, quiz=quiz, current_quiz=quiz_result, question=question, answer=current_answer)
+                choice.save()
+    
+        return HttpResponseRedirect(reverse('quiz:result_quiz', args=[quiz_id, quiz_result.id, ]))
+    else:
+        return HttpResponseRedirect(reverse('quiz:solve_quiz', args=[quiz_id, ]))
+    
+def result_quiz(request, quiz_id, result_id):
+    
+    quiz = get_object_or_404(Quiz, pk=quiz_id)
+    result = get_object_or_404(QuizResult, pk=result_id)
+
+    questions = quiz.question_set.all()
+    choices = result.choice_set.all()
+
+    questions_count = quiz.question_set.count()
+    score = (result.correct_answers / questions_count) * 100
+
+    result.score = score
+    result.save()
+
+    content = []
+    
+    for i in range(questions_count):
+        content.append({
+            "question": questions[i],
+            "choice": choices[i],
+            "correct": questions[i].answer_set.get(is_correct=True)
+        })
+
+    context = {
+        "quiz": quiz,
+        "result": result,
+        "content": content,
+    }
+
+    return render(request, 'quiz/quiz_result.html', context)

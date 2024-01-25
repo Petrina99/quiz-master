@@ -52,11 +52,14 @@ class QuizResult(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     score = models.IntegerField(blank=False)
-    
-    def __str__(self):
-        return self.score
+    correct_answers = models.IntegerField(blank=False)
 
 class Choice(models.Model):
     correct = models.BooleanField()
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     current_quiz = models.ForeignKey(QuizResult, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.question.question_text} in quiz {self.quiz.quiz_name} answered {self.correct}"

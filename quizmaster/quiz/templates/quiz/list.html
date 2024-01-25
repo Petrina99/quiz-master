@@ -19,7 +19,7 @@
         </div>
         <!-- href treba promjenit kad napravimo view za rješavanje kviza -->
         <div class="list-item-button-div">
-            <a href="/"> 
+            <a href="{% url 'quiz:solve_quiz' quiz.id %}"> 
                 <button class="list-item-button">Play Now</button>
             </a>
         </div>
