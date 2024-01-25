@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
-from .models import Quiz, Question, Answer, Comment, Choice, QuizResult
+from .models import Quiz, Question, Answer, Comment, Choice, QuizResult, UserProfile
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -241,3 +242,24 @@ def result_quiz(request, quiz_id, result_id):
     }
 
     return render(request, 'quiz/quiz_result.html', context)
+
+def user_profile(request):
+    user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
+    
+    # Get solved quizzes and average percentage
+    quiz_results = QuizResult.objects.filter(user=request.user)
+    solved_quizzes = quiz_results.count()
+    
+    total_percentage = 0
+    for result in quiz_results:
+        total_percentage += (result.score / result.quiz.question_set.count()) * 100
+    
+    average_percentage = total_percentage / max(1, solved_quizzes)  # Avoid division by zero
+    
+    context = {
+        'user_profile': user_profile,
+        'solved_quizzes': solved_quizzes,
+        'average_percentage': average_percentage,
+    }
+
+    return render(request, 'quiz/user_profile.html', context)

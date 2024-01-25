@@ -63,3 +63,10 @@ class Choice(models.Model):
 
     def __str__(self):
         return f"{self.question.question_text} in quiz {self.quiz.quiz_name} answered {self.correct}"
+    
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username

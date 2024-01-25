@@ -1,0 +1,15 @@
+{% extends "quiz/base.html" %}
+
+{% block content %}
+
+<div class="quiz-detail-layout">
+    <div class="quiz-detail-heading">
+        <h1>{{ user_profile.user.username }}'s Profile</h1>
+    </div>
+    <div class="quiz-detail-info">
+        <p>Total Solved Quizzes: {{ solved_quizzes }}</p>
+        <p>Average Percentage: {{ average_percentage }}%</p>
+    </div>
+</div>
+
+{% endblock content %}
