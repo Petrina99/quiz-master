@@ -82,7 +82,8 @@ def detail(request, quiz_id):
 
     quiz = get_object_or_404(Quiz,pk=quiz_id)
     context = {
-        "quiz": quiz
+        "quiz": quiz,
+        "liked": quiz.liked_by(request.user)
     }
 
     return render(request, 'quiz/quiz_detail.html', context)

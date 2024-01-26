@@ -1,0 +1,56 @@
+.solve-layout {
+    flex-basis: 70%;
+    background-color: #003566;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1em;
+    margin-top: 25px;
+    color: white;
+}
+
+.solve-heading {
+    flex-basis: 100%;
+    padding: 1em;
+    background-color: #001D3D;
+    border-radius: 10px;
+}
+
+.solve-form {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.solve-form-heading {
+    flex-basis: 100%;
+    background-color: #001D3D;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+.solve-form-content {
+    flex-basis: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    padding: 0.5em;
+    margin-bottom: 20px;
+}
+
+.solve-answer {
+    background-color: #001D3D;
+    padding: 1em;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 90% 10%;
+}
+
+.solve-answer p {
+    font-weight: bold;
+}

@@ -19,6 +19,14 @@
         <a href="{% url 'quiz:solve_quiz' quiz.id %}">
             <button class="list-item-button">Play Now</button>
         </a>
+        <form method="post" action="{% url 'quiz:like' quiz.id %}" class="like-form">
+            {% csrf_token %}
+            {% if liked %}
+                <button type="submit" class="list-item-button">Unlike</button>
+            {% else %}
+                <button type="submit" class="list-item-button">Like</button>
+            {% endif %}
+        </form>
     </div>
     <div class="quiz-detail-desc">
         <h2 class="quiz-desc-heading">Quiz description: </h2>
@@ -79,12 +87,6 @@
         </p>
     {% endif %}
    
-</div>
-<div class="detail-button-div">
-    <form method="post" action="{% url 'quiz:like' quiz.id %}">
-        {% csrf_token %}
-        <button type="submit" class="list-item-button">Like</button>
-    </form>
 </div>
 
 {% endblock content %}

@@ -24,8 +24,15 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    flex-wrap: wrap;
 }
 
+.like-form {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
 .quiz-detail-heading {
     flex-basis: 100%;
     margin-bottom: 20px;
@@ -207,4 +214,8 @@
 
 .author-link:hover {
     text-decoration: underline;
+}
+
+.like-form {
+
 }

@@ -2,22 +2,26 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
-<div>
-    <h1>{{ quiz.quiz_name }}</h1>
-    <form method="post" action="{% url 'quiz:submit_quiz' quiz.id %}">
+<div class="solve-layout">
+    <div class="solve-heading">
+        <h1 style="font-weight: normal;">Solving quiz: <span style="font-weight:bold;">{{ quiz.quiz_name }}</span></h1>
+    </div>
+    <form method="post" action="{% url 'quiz:submit_quiz' quiz.id %}" class="solve-form">
         {% csrf_token %}
         {% for question in quiz.question_set.all %}
-            <div>
-                <h2>{{ question.question_text }}</h3>
+            <div class="solve-form-heading">
+                <h2>{{ question.question_text }}</h2>
+            </div>
+            <div class="solve-form-content">
                 {% for answer in question.answer_set.all %}
-                    <div>
-                        <input type="radio" name="radio-{{question.id}}" value="{{answer.id}}" required>
+                    <div class="solve-answer">
                         <p>{{ answer.answer_text }}</p>
+                        <input type="radio" name="radio-{{question.id}}" value="{{answer.id}}" required>
                     </div>
                 {% endfor %}
             </div>
         {% endfor %}
-        <button type="submit">Submit answers</button>
+        <button type="submit" class="list-item-button">Submit answers</button>
     </form>
 </div>
 

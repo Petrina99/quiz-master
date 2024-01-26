@@ -10,6 +10,12 @@ class Quiz(models.Model):
     def __str__(self):
         return self.quiz_name
     
+    def liked_by(self, user):
+        try:
+            return self.likes.filter(user=user).count() > 0
+        except:
+            return False
+        
     def toggle_like(self, user):
         if self.likes.filter(user=user).count() > 0:
             like = self.likes.filter(user=user)
