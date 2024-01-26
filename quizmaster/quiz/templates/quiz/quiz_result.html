@@ -1,23 +1,44 @@
 {% extends 'quiz/base.html' %}
 {% block content %}
-<div>
-    <h2>Quiz summary</h2>
-    <p>{{ quiz.quiz_name }}</p>
-    <p>{{ result.correct_answers }} / {{ quiz.question_set.count }}</p>
-    <p>{{ result.score }} %</p>
-    {% for item in content %}
-    <div>
-        <p>Question: {{ item.question.question_text }}</p>
-        {% for answer in item.question.answer_set.all %}
-            {% if answer.is_correct %}
-                <p style="color:green;">{{ answer.answer_text }}</p>
-            {% else %}
-                <p>{{ answer.answer_text }}</p>
-            {% endif %}
-        {% endfor %}
-        <p>User answered: {{ item.choice.answer.answer_text }}</p>
+<div class="solve-layout">
+    <div class="solve-heading">
+        <h1>Quiz Result</h1>
     </div>
-    {% endfor %}
-
+    <div class="result-info">
+        <p>Quiz name: <span style="font-weight:bold;">{{ quiz.quiz_name }}</span></p>
+        <p>Correct answers: 
+            <span style="font-weight:bold;">{{ result.correct_answers }} / {{ quiz.question_set.count }}</span>
+        </p>
+        <p>Final score: <span style="font-weight:bold;">{{ result.score }} %</span></p>
+    </div>
+    <div class="result-content">
+        {% for item in content %}
+            <div class="result-item">
+                <div class="result-item-heading">
+                    <h3 style="font-weight:normal;">Question: 
+                        <span style="font-weight:bold;">{{ item.question.question_text }}</span>
+                    </h3>
+                </div>
+                <div class="result-item-content">
+                    {% for answer in item.question.answer_set.all %}
+                        <div class="item-answer-result">
+                            {% if answer.is_correct %}
+                                <p style="color:#90ee90;">{{ answer.answer_text }}</p>
+                            {% else %}
+                                <p>{{ answer.answer_text }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <p class="result-user-answer">User answered:
+                    {% if item.choice.answer.correct %}
+                        <span style="color:#90ee90;">{{ item.choice.answer.answer_text }}</span>
+                    {% else %}
+                        <span style="color:red;">{{ item.choice.answer.answer_text }}</span>
+                    {% endif %}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}

@@ -1,0 +1,21 @@
+.question-detail-layout {
+    flex-basis: 70%;
+    background: #003566;
+    margin-top: 25px;
+    padding: 1em;
+    color: white;
+    border-radius: 10px;
+}
+
+.question-detail-answers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    margin: 1em 0;
+}
+
+.question-detail-answers-item {
+    background: #001D3D;
+    padding: 1em;
+    border-radius: 10px;
+}

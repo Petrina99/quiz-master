@@ -1,16 +1,31 @@
 {% extends "quiz/base.html" %}
 {% block content %}
 
-<div>
-    <p>{{ question.question_text }}</p>
-    <div>
+{% if question.quiz.author == request.user %}
+
+<div class="question-detail-layout">
+    <h3>{{ question.question_text }}</h3>
+    <div class="question-detail-answers">
         {% for answer in question.answer_set.all %}
-            <p>{{ answer.answer_text }}<span> {{ answer.is_correct }}</span></p>
+            <div class="question-detail-answers-item">
+                {% if answer.is_correct %}
+                    <p style="color:#90ee90;">{{ answer.answer_text }}</p>
+                {% else %}
+                    <p>{{ answer.answer_text }}</p>
+                {% endif %}
+            </div>
         {% endfor %}
     </div>
-    {% if question.quiz.author == request.user %}
-        <a href="{% url 'quiz:edit_quiz' question.quiz.id %}">Edit quiz</a>
-    {% endif %}
+        <a href="{% url 'quiz:edit_quiz' question.quiz.id %}">
+            <button class="list-item-button">Edit quiz</button>
+        </a>
+        <a href="{% url 'quiz:edit_question' question.id %}">
+            <button class="list-item-button">Edit question</button>
+        </a>
 </div>
-
+{% else %}
+<div class="question-detail-layout">
+    <h3>You have to be the quiz author to see this page</h3>
+</div>
+{% endif %}
 {% endblock content %}
