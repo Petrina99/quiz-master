@@ -31,7 +31,7 @@
                     {% endfor %}
                 </div>
                 <p class="result-user-answer">User answered:
-                    {% if item.choice.answer.correct %}
+                    {% if item.choice.correct == True %}
                         <span style="color:#90ee90;">{{ item.choice.answer.answer_text }}</span>
                     {% else %}
                         <span style="color:red;">{{ item.choice.answer.answer_text }}</span>
