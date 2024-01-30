@@ -14,7 +14,7 @@
             <div class="exquestion-content">
                 <a href="{% url 'quiz:question_detail' question.id %}">{{ question.question_text }}</a>
             </div>
-            {% if request.user == quiz.author %}
+            {% if request.user == quiz.author or request.user.account.moderator == True %}
                 <form method="post" action="{% url 'quiz:delete_question' question.id %}" class="exquestion-delete">
                     {% csrf_token %}
                     <button type="submit">Delete</button>
@@ -46,7 +46,7 @@
             <button type="submit" class="list-item-button">Add</button>
         </div>
     </form>
-    {% if request.user == quiz.author %}
+    {% if request.user.account.moderator == True or quiz.author == request.user %}
         <form method="post" action="{% url 'quiz:delete_quiz' quiz.id %}" class="quiz-delete-form">
             {% csrf_token %}
             <button type="submit">Delete quiz</button>

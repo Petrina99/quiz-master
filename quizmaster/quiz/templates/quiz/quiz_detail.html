@@ -34,7 +34,7 @@
     </div>
 </div>
 
-{% if quiz.author == request.user %}
+{% if request.user.account.moderator == True or quiz.author == request.user %}
     <div class="quiz-detail-questions">
         <h2>Questions: </h2>
         {% for question in quiz.question_set.all %}
@@ -66,6 +66,12 @@
                 <div class="comment-item-header">
                     <p>@{{ comment.user.username }}</p>
                     <p class="comment-date">{{ comment.pub_date }}</p>
+                    {% if comment.user == request.user or request.user.account.moderator == True %}
+                        <form method="POST" action="{% url 'quiz:delete_comment' comment.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    {% endif %}
                 </div>
                 <div class="comment-item-content">
                     <p>{{ comment.comment_text }}</p>

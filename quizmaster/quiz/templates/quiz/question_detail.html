@@ -1,7 +1,7 @@
 {% extends "quiz/base.html" %}
 {% block content %}
 
-{% if question.quiz.author == request.user %}
+{% if question.quiz.author == request.user or request.user.account.moderator == True %}
 
 <div class="question-detail-layout">
     <h3>{{ question.question_text }}</h3>
@@ -18,9 +18,6 @@
     </div>
         <a href="{% url 'quiz:edit_quiz' question.quiz.id %}">
             <button class="list-item-button">Edit quiz</button>
-        </a>
-        <a href="{% url 'quiz:edit_question' question.id %}">
-            <button class="list-item-button">Edit question</button>
         </a>
 </div>
 {% else %}

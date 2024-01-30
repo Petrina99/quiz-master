@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
-from .models import Quiz, Question, Answer, Comment, Choice, QuizResult
+from .models import Quiz, Question, Answer, Comment, Choice, QuizResult, Account
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -28,8 +28,9 @@ def register_user(request):
         if does_exist is False:
             if password == repeat_password:
                 user = User.objects.create_user(username = username, password = password)
-               
+                account = Account(user=user, moderator=False)
                 user.save()
+                account.save()
                 # odma nakon registracije logiramo korisnika
                 new_user = authenticate(username=username, password=password)
                 login(request, new_user)
@@ -169,6 +170,15 @@ def post_comment(request, quiz_id):
         comment.save()
 
     return HttpResponseRedirect(reverse("quiz:detail", args=[quiz_id,]))
+
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    quiz = get_object_or_404(Quiz, pk=comment.quiz.id)
+
+    if request.method == "POST" and request.user.is_authenticated:
+        comment.delete()
+
+        return HttpResponseRedirect(reverse("quiz:detail", args=[quiz.id, ])) 
 
 def like_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)

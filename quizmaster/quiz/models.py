@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Account(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    moderator = models.BooleanField()
+
+    def __str__(self):
+        return f"{self.user.username}, is_moderator:{self.moderator}"
+
 class Quiz(models.Model):
     quiz_name = models.CharField(max_length=200, blank=False)
     pub_date = models.DateTimeField("date published", auto_now_add=True)
