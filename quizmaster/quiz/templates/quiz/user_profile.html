@@ -46,6 +46,7 @@
                                 <a href="{% url 'quiz:detail' quiz.id %}" class="author-link">{{ quiz.quiz_name }}</a>
                             </p>
                             <p>Number of questions: {{ quiz.question_set.count }}</p>
+                            <p>Likes: <span style="font-weight: bold;">{{ quiz.likes.count }}</span></p>
                         </div>
                         <div class="profile-button-div">
                             <a href="{% url 'quiz:solve_quiz' quiz.id %}">

@@ -234,7 +234,7 @@ def result_quiz(request, quiz_id, result_id):
     questions_count = quiz.question_set.count()
     score = (result.correct_answers / questions_count) * 100
 
-    result.score = score
+    result.score = round(score, 2)
     result.save()
 
     content = []
@@ -264,8 +264,11 @@ def user_profile(request, user_id):
     for result in quiz_results:
         total_percentage += result.score
     
-    average_percentage = total_percentage / quiz_results.count()
-    
+    if total_percentage > 0 and quiz_results.count() > 0:
+        average_percentage = total_percentage / quiz_results.count()
+    else:
+        average_percentage = 0
+
     context = {
         'user_profile': user_profile,
         'quiz_results': quiz_results,
