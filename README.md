@@ -12,5 +12,7 @@
 - CSS for design
 
 ### **Made in collaboration with**
-[@lukalovric](https://github.com/jurajlovric)
-[@jurajlovric](https://github.com/jurajlovric)
+[Juraj Lovrić](https://github.com/jurajlovric)
+
+
+[Luka Lovrić](https://github.com/jurajlovric)
