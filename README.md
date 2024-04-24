@@ -7,6 +7,7 @@
 - Users can like and commment quizzes
 
 ### **Technologies used**
+- Django - python web framework
 - The Django template language
 - SQLite - database
 - CSS for design
